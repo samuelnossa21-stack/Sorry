@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ti | Con todo mi corazón</title>
+    
+    <link rel="icon" href="https://fav.farm/❤️">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Outfit:wght@300;400;600;900&display=swap');
+        
+        body { 
+            font-family: 'Outfit', sans-serif; 
+            background-color: #09090b; 
+            color: #fafafa;
+            overflow-x: hidden;
+        }
+
+        /* --- CONTENEDOR DEL SOBRE --- */
+        .envelope-wrapper {
+            perspective: 1000px;
+            transition: all 0.5s ease;
+        }
+
+        /* --- LA CARTA VIEJA, QUEMADA Y CON MANCHAS --- */
+        .old-letter {
+            font-family: 'Special Elite', serif;
+            background-color: #f2e6ce;
+            /* Manchas oscuras y de simulación de sangre seca/antigua en los bordes */
+            background-image: 
+                radial-gradient(circle at 15% 25%, rgba(100, 10, 10, 0.3) 0%, transparent 35%), 
+                radial-gradient(circle at 80% 75%, rgba(85, 5, 5, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, transparent 50%, rgba(40, 20, 10, 0.15) 100%);
+            color: #2c1a14;
+            box-shadow: 
+                inset 0 0 50px rgba(50, 30, 20, 0.75),
+                0 25px 50px rgba(0, 0, 0, 0.7);
+            position: relative;
+            transform-origin: top center;
+            opacity: 0;
+            transform: scaleY(0) rotateX(-30deg);
+            transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        /* Efecto de borde completamente quemado y desgastado */
+        .old-letter::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            box-shadow: inset 0 0 30px 15px rgba(25, 12, 7, 0.9);
+            pointer-events: none;
+            z-index: 10;
+            border: 1px solid rgba(0,0,0,0.3);
+        }
+
+        /* Clase que activa la animación cuando se abre */
+        .old-letter.opened {
+            opacity: 1;
+            transform: scaleY(1) rotateX(0deg);
+        }
+
+        /* Animación del latido del corazón en el botón */
+        .heart-pulse {
+            animation: beat 1.2s infinite;
+        }
+
+        @keyframes beat {
+            0% { transform: scale(1); }
+            20% { transform: scale(1.15); }
+            40% { transform: scale(1); }
+            60% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .blood-text {
+            color: #8b0000;
+            text-shadow: 0 0 4px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4 md:p-8 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-900 via-stone-950 to-black">
+
+    <!-- PANTALLA INICIAL: EL SOBRE MISTERIOSO -->
+    <div id="envelope-container" class="envelope-wrapper text-center max-w-md w-full py-12">
+        <div class="mb-8">
+            <span class="text-[10px] tracking-[0.4em] text-rose-500 font-bold uppercase block mb-2">Un mensaje pendiente</span>
+            <h1 class="text-3xl font-black tracking-tight text-white">Tengo algo que decirte...</h1>
+        </div>
+
+        <!-- El Botón/Sobre para abrir -->
+        <button onclick="openLetter()" id="btn-envelope" class="group relative inline-flex items-center justify-center w-40 h-40 bg-zinc-900 border border-zinc-800 rounded-full shadow-2xl hover:border-rose-900 transition-all duration-500 focus:outline-none">
+            <div class="absolute inset-0 rounded-full bg-rose-950/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md"></div>
+            <span class="text-6xl heart-pulse select-none">✉️</span>
+        </button>
+        
+        <p class="text-xs text-zinc-500 mt-6 tracking-wide animate-pulse">Toca el sobre para abrirlo</p>
+    </div>
+
+    <!-- SECCIÓN OCULTA: LA CARTA Y LA FOTO DE ELAIJAH -->
+    <main id="main-content" class="hidden max-w-2xl w-full flex flex-col items-center gap-12 py-6">
+        
+        <!-- CARTA VIEJA ANIMADA -->
+        <div id="letter" class="old-letter w-full p-8 md:p-12 rounded-[2.5rem] relative">
+            <!-- Contenido de la Carta con Fuente de Máquina de Escribir -->
+            <div class="relative z-20 space-y-6 text-sm md:text-base leading-relaxed">
+                <div class="flex justify-between items-center border-b border-red-950/10 pb-4 text-xs font-bold opacity-70">
+                    <span>REGISTRO S.N.</span>
+                    <span>TOLÚ VIEJO, 2026</span>
+                </div>
+                
+                <p class="font-bold">Hola,</p>
+                
+                <p>
+                    Sé que las cosas se salieron de control y que a veces cometo errores sin pensar en el impacto que causan. Mi cabeza da mil vueltas y mi corazón se acelera, pero no quiero que un malentendido o una mala decisión raye lo que realmente importa.
+                </p>
+                
+                <p>
+                    Esta carta está gastada, manchada y rota, justo como me siento cuando sé que fallé. No busco excusas ni explicaciones técnicas. Solo quiero pedirte perdón, de manera sincera, de frente y de corazón. Tu tranquilidad vale más que cualquier orgullo mío.
+                </p>
+
+                <p class="blood-text font-black tracking-wide text-center py-4 text-lg">
+                    ¿Me perdonas?
+                </p>
+                
+                <div class="pt-6 border-t border-red-950/10 text-right italic text-xs font-bold opacity-80">
+                    — Con sinceridad, Samuel.
+                </div>
+            </div>
+        </div>
+
+        <!-- SECCIÓN DE LA FOTO DE ELAIJAH (Acompañante de la historia) -->
+        <div id="photo-section" class="opacity-0 translate-y-8 transition-all duration-1000 max-w-xs w-full text-center">
+            <div class="bg-zinc-900 p-4 rounded-[2.5rem] shadow-2xl border border-zinc-800/80 transition-transform hover:scale-105 duration-500">
+                <!-- Aquí está la foto de Elaijah. Cambia el link de abajo por el tuyo -->
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=400" alt="Elaijah" class="w-full h-72 object-cover rounded-[2rem] grayscale sepia hover:grayscale-0 transition-all duration-700">
+                <p class="text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500 mt-4">Evidencia / Elaijah</p>
+            </div>
+        </div>
+
+        <!-- BOTONES INTERACTIVOS FINALES -->
+        <div id="actions" class="opacity-0 transition-all duration-1000 flex gap-4 w-full justify-center">
+            <button onclick="respond('Si')" class="bg-zinc-100 text-zinc-900 px-8 py-4 rounded-2xl font-bold text-sm hover:bg-white active:scale-95 transition-all shadow-xl">Sí, te perdono</button>
+            <button onclick="respond('No')" id="btn-no" class="bg-zinc-900 border border-zinc-800 text-zinc-400 px-8 py-4 rounded-2xl font-bold text-sm hover:text-rose-500 hover:border-rose-950 transition-all">No</button>
+        </div>
+
+    </main>
+
+    <script>
+        function openLetter() {
+            const envContainer = document.getElementById('envelope-container');
+            const mainContent = document.getElementById('main-content');
+            const letter = document.getElementById('letter');
+            const photo = document.getElementById('photo-section');
+            const actions = document.getElementById('actions');
+
+            // Desvanecer el sobre inicial
+            envContainer.style.opacity = '0';
+            envContainer.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                envContainer.classList.add('hidden');
+                mainContent.classList.remove('hidden');
+                
+                // Efecto de apertura de la carta
+                setTimeout(() => {
+                    letter.classList.add('opened');
+                    
+                    // Mostrar la foto y los botones escalonadamente
+                    setTimeout(() => {
+                        photo.style.opacity = '1';
+                        photo.style.transform = 'translateY(0)';
+                        
+                        setTimeout(() => {
+                            actions.style.opacity = '1';
+                        }, 500);
+                    }, 800);
+                }, 100);
+            }, 500);
+        }
+
+        function respond(answer) {
+            if(answer === 'Si') {
+                alert('Gracias por entender... Prometo que las cosas van a estar bien de ahora en adelante. ❤️');
+            } else {
+                // Hacer que el botón "No" se mueva de lugar si intentan darle clic (broma sutil)
+                const btnNo = document.getElementById('btn-no');
+                const x = Math.random() * (window.innerWidth - 150) - (window.innerWidth / 2 - 75);
+                const y = Math.random() * (window.innerHeight - 80) - (window.innerHeight / 2 - 40);
+                btnNo.style.transform = `translate(${x}px, ${y}px)`;
+                btnNo.style.position = 'absolute';
+            }
+        }
+    </script>
+</body>
+</html>
